@@ -1,0 +1,4 @@
+[package]
+name = "crh"
+version = "0.1.0"
+authors = ["Michael Thorsley <michael.thorsley+github@gmail.com>"]
