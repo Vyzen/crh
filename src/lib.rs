@@ -102,8 +102,7 @@ impl<T : Eq + Ord> Heap<T> for BinomialHeap<T> {
 	fn size(&self) -> usize { self.data.len() }
 	
 	fn peek_min(&self) -> Option<&T> {
-		if self.data.is_empty() { None }
-		else { None }
+		self.data.first()
 	}
 	
 	fn remove_min(&mut self) -> Option<T> {
@@ -147,5 +146,18 @@ fn binomial_heap_remove_min() {
 	assert!(h.size() == 0);
 	
 	assert!(h.remove_min().is_none());
+}
+
+#[test]
+fn binomial_heap_peek_min() {
+	let mut h = BinomialHeap::<i32>::new();
+	h.add(3);
+	h.add(4);
+	h.add(2);
+	assert!(h.size() == 3);
+	
+	let x = h.peek_min().unwrap();
+	assert!(*x == 2);
+	assert!(h.size() == 3);
 	
 }
