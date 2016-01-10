@@ -45,6 +45,10 @@ impl<T> List<T> {
             node.element})
     }
 
+    pub fn peek(&self) -> Option<&T> {
+        self.head.as_ref().map(|node_box| { &node_box.element })
+    }
+
 }
 
 #[test]
@@ -83,4 +87,24 @@ fn sll_pop() {
 
     let z = l.pop();
     assert!(z.is_none());
+}
+
+#[test]
+fn sll_peek() {
+    let mut l = List::<i32>::new();
+
+    {
+        let x = l.peek();
+        assert!(x.is_none());
+    } // This is because x now has a reference to something in l,
+      //which will prevent push for mutating l.  The extra {} causes
+      // x to fall out of scope.
+
+    l.push(5);
+    l.push(10);
+
+    let y = l.peek();
+    assert!(y.is_some());
+    assert!(*y.unwrap() == 10);
+    assert!(l.length() == 2);
 }
