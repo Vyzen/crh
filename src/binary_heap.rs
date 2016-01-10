@@ -1,13 +1,12 @@
-use std::cmp::Eq;
 use std::cmp::Ord;
 use heap::Heap;
 
 /// A basic Binary heap implementation based on a vector.
-pub struct BinaryHeap<T : Eq + Ord> {
+pub struct BinaryHeap<T : Ord> {
 	data: Vec<T>
 }
 
-impl<T : Eq + Ord> BinaryHeap<T> {
+impl<T : Ord> BinaryHeap<T> {
 	pub fn new() -> BinaryHeap<T> {
 		BinaryHeap::<T> {
 			data : Vec::new()
@@ -76,7 +75,7 @@ impl<T : Eq + Ord> BinaryHeap<T> {
 	}
 }
 
-impl<T : Eq + Ord> Heap<T> for BinaryHeap<T> {
+impl<T : Ord> Heap<T> for BinaryHeap<T> {
 	fn add(&mut self, x:T) {
 		let idx = self.data.len();
 		self.data.push(x);

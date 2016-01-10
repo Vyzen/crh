@@ -1,10 +1,8 @@
-
-use std::cmp::Eq;
 use std::cmp::Ord;
 
 /// Specification for a data type that implements a
 /// min-heap.
-pub trait Heap<T : Eq + Ord> {
+pub trait Heap<T : Ord> {
 
 	/// Add an element to this heap.
 	fn add(&mut self, x:T);
