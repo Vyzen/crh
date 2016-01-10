@@ -19,3 +19,12 @@ pub trait Heap<T : Ord> {
 	/// Tells whether the heap is empty.
 	fn is_empty(&self) -> bool;
 }
+
+
+/// An "into" iterator type that works generically on all heaps.
+pub struct HeapIntoIter<T : Ord>(Heap<T>);
+
+impl<T : Ord> Iterator for HeapIntoIter<T> {
+	type Item = T;
+	fn next(&mut self) -> Option<Self::Item> { self.0.remove_min() }
+}
