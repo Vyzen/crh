@@ -31,22 +31,18 @@ impl<T> List<T> {
     pub fn push(&mut self, x : T) {
         let new_head = Some(Box::new(ListNode::<T>{
             element : x,
-            next : mem::replace(&mut self.head, None)
+            next : self.head.take() //mem::replace(&mut self.head, None)
         }));
         self.head = new_head;
         self.length += 1;
     }
 
     pub fn pop(&mut self) -> Option<T> {
-        match mem::replace(&mut self.head, None) {
-            None => { None }
-            Some(node_box) => {
-                let node = *node_box;
-                self.head = node.next;
-                self.length -= 1;
-                Some(node.element)
-            }
-        }
+        self.head.take().map(|node_box| {
+            let node = *node_box;
+            self.head = node.next;
+            self.length -= 1;
+            node.element})
     }
 
 }
