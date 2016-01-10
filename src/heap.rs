@@ -15,4 +15,7 @@ pub trait Heap<T : Ord> {
 
 	/// Gets the current size of this heap.
 	fn size(&self) -> usize;
+
+	/// Tells whether the heap is empty.
+	fn is_empty(&self) -> bool;
 }

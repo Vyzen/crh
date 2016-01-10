@@ -97,6 +97,10 @@ impl<T : Ord> Heap<T> for BinaryHeap<T> {
 		}
 	}
 
+	fn is_empty(&self) -> bool {
+		self.data.is_empty()
+	}
+
 }
 
 #[test]
