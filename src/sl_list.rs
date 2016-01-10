@@ -49,6 +49,15 @@ impl<T> List<T> {
         self.head.as_ref().map(|node_box| { &node_box.element })
     }
 
+    pub fn reverse(&mut self)  {
+        let mut rev = List::<T>::new();
+        while !self.is_empty() {
+            rev.push(self.pop().unwrap());
+        }
+        self.head = rev.head;
+        self.length = rev.length;
+    }
+
 }
 
 pub struct IntoIter<T>(List<T>);
@@ -143,4 +152,30 @@ fn sll_into_iter() {
 
     item = iter.next();
     assert!(item.is_none());
+}
+
+#[test]
+fn sll_reverse() {
+    let mut l = List::<i32>::new();
+    l.push(1);
+    l.push(2);
+    l.push(3);
+    assert_eq!(l.length(), 3);
+
+    l.reverse();
+    assert_eq!(l.length(), 3);
+
+    let x = l.pop();
+    assert!(x.is_some());
+    assert_eq!(x.unwrap(), 1);
+
+    let y = l.pop();
+    assert!(y.is_some());
+    assert_eq!(y.unwrap(), 2);
+
+    let z = l.pop();
+    assert!(z.is_some());
+    assert_eq!(z.unwrap(), 3);
+
+    assert!(l.is_empty());
 }
