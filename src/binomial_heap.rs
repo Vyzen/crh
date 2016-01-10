@@ -1,43 +1,6 @@
 use std::cmp::Ord;
-use std::mem;
 use heap::Heap;
-
-// A simple singly-linked list type.
-// Doesn't need to be too sophisticated.
-struct ListNode<T> {
-    pub element : T,
-    pub next : Option<Box<ListNode<T>>>
-}
-
-struct List<T> {
-    length : usize,
-    head : Option<Box<ListNode<T>>>
-}
-
-impl<T> List<T> {
-    fn new() -> Self {
-        List::<T> {
-            length : 0,
-            head : None
-        }
-    }
-
-    fn is_empty(&self) -> bool {
-        self.head.is_none()
-    }
-
-    fn length(&self) -> usize {
-        self.length
-    }
-
-    fn cons(&mut self, x : T) {
-        let mut newHead = Some(Box::new(ListNode::<T>{
-            element : x,
-            next : mem::replace(&mut self.head, None)
-        }));
-        self.head = newHead
-    }
-}
+use sl_list::List;
 
 // A struct that represents a binomial tree.
 struct BinomialTree<T> {
@@ -62,7 +25,7 @@ impl<T : Ord> BinomialTree<T> {
     /// min-heap property.
     fn link(&mut self, other : BinomialTree<T>) {
         if self.order() != other.order() { panic!(); }
-        else { self.children.cons(other); }
+        else { self.children.push(other); }
     }
 }
 
