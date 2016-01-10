@@ -8,7 +8,7 @@ pub struct BinaryHeap<T : Eq + Ord> {
 }
 
 impl<T : Eq + Ord> BinaryHeap<T> {
-	fn new() -> BinaryHeap<T> {
+	pub fn new() -> BinaryHeap<T> {
 		BinaryHeap::<T> {
 			data : Vec::new()
 		}
