@@ -10,7 +10,7 @@ struct BinomialTree<T> {
 
 impl<T : Ord> BinomialTree<T> {
     fn new(x: T) -> Self {
-        BinomialTree::<T> {
+        BinomialTree {
             root : x,
             children : List::new()
         }

@@ -14,7 +14,7 @@ pub struct List<T> {
 
 impl<T> List<T> {
     pub fn new() -> Self {
-        List::<T> {
+        List {
             length : 0,
             head : None
         }
