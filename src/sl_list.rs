@@ -61,28 +61,28 @@ fn sll_create() {
 fn sll_push() {
     let mut l = List::<i32>::new();
     l.push(5);
-    assert!(l.length() == 1);
+    assert_eq!(l.length(), 1);
     l.push(10);
-    assert!(l.length() == 2);
+    assert_eq!(l.length(), 2);
 }
 
 #[test]
 fn sll_pop() {
     let mut l = List::<i32>::new();
     l.push(5);
-    assert!(l.length() == 1);
+    assert_eq!(l.length(), 1);
     l.push(10);
-    assert!(l.length() == 2);
+    assert_eq!(l.length(), 2);
 
     let x = l.pop();
     assert!(x.is_some());
-    assert!(x.unwrap() == 10);
-    assert!(l.length() == 1);
+    assert_eq!(x.unwrap(), 10);
+    assert_eq!(l.length(), 1);
 
     let y = l.pop();
     assert!(y.is_some());
-    assert!(y.unwrap() == 5);
-    assert!(l.length() == 0);
+    assert_eq!(y.unwrap(), 5);
+    assert_eq!(l.length(), 0);
     assert!(l.is_empty());
 
     let z = l.pop();
@@ -105,6 +105,6 @@ fn sll_peek() {
 
     let y = l.peek();
     assert!(y.is_some());
-    assert!(*y.unwrap() == 10);
-    assert!(l.length() == 2);
+    assert_eq!(*y.unwrap(), 10);
+    assert_eq!(l.length(), 2);
 }

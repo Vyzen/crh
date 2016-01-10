@@ -106,10 +106,11 @@ impl<T : Ord> Heap<T> for BinaryHeap<T> {
 #[test]
 fn binary_heap_creation() {
 	let mut h = BinaryHeap::<i32>::new();
+	assert!(h.is_empty());
 	h.add(3);
 	h.add(4);
 	h.add(2);
-	assert!(h.size() == 3);
+	assert_eq!(h.size(), 3);
 }
 
 #[test]
@@ -118,19 +119,19 @@ fn binary_heap_remove_min() {
 	h.add(3);
 	h.add(4);
 	h.add(2);
-	assert!(h.size() == 3);
+	assert_eq!(h.size(), 3);
 
 	let x = h.remove_min().unwrap();
-	assert!(x == 2);
-	assert!(h.size() == 2);
+	assert_eq!(x, 2);
+	assert_eq!(h.size(), 2);
 
 	let y = h.remove_min().unwrap();
-	assert!(y == 3);
-	assert!(h.size() == 1);
+	assert_eq!(y, 3);
+	assert_eq!(h.size(), 1);
 
 	let z = h.remove_min().unwrap();
-	assert!(z == 4);
-	assert!(h.size() == 0);
+	assert_eq!(z, 4);
+	assert_eq!(h.size(), 0);
 
 	assert!(h.remove_min().is_none());
 }
@@ -141,10 +142,10 @@ fn binary_heap_peek_min() {
 	h.add(3);
 	h.add(4);
 	h.add(2);
-	assert!(h.size() == 3);
+	assert_eq!(h.size(), 3);
 
 	let x = h.peek_min().unwrap();
-	assert!(*x == 2);
-	assert!(h.size() == 3);
+	assert_eq!(*x, 2);
+	assert_eq!(h.size(), 3);
 
 }
