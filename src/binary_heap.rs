@@ -2,14 +2,14 @@ use std::cmp::Eq;
 use std::cmp::Ord;
 use heap::Heap;
 
-/// A basic Binomial heap implementation based on a vector.
-pub struct BinomialHeap<T : Eq + Ord> {
+/// A basic Binary heap implementation based on a vector.
+pub struct BinaryHeap<T : Eq + Ord> {
 	data: Vec<T>
 }
 
-impl<T : Eq + Ord> BinomialHeap<T> {
-	fn new() -> BinomialHeap<T> {
-		BinomialHeap::<T> {
+impl<T : Eq + Ord> BinaryHeap<T> {
+	fn new() -> BinaryHeap<T> {
+		BinaryHeap::<T> {
 			data : Vec::new()
 		}
 	}
@@ -76,7 +76,7 @@ impl<T : Eq + Ord> BinomialHeap<T> {
 	}
 }
 
-impl<T : Eq + Ord> Heap<T> for BinomialHeap<T> {
+impl<T : Eq + Ord> Heap<T> for BinaryHeap<T> {
 	fn add(&mut self, x:T) {
 		let idx = self.data.len();
 		self.data.push(x);
@@ -101,8 +101,8 @@ impl<T : Eq + Ord> Heap<T> for BinomialHeap<T> {
 }
 
 #[test]
-fn binomial_heap_creation() {
-	let mut h = BinomialHeap::<i32>::new();
+fn binary_heap_creation() {
+	let mut h = BinaryHeap::<i32>::new();
 	h.add(3);
 	h.add(4);
 	h.add(2);
@@ -110,8 +110,8 @@ fn binomial_heap_creation() {
 }
 
 #[test]
-fn binomial_heap_remove_min() {
-	let mut h = BinomialHeap::<i32>::new();
+fn binary_heap_remove_min() {
+	let mut h = BinaryHeap::<i32>::new();
 	h.add(3);
 	h.add(4);
 	h.add(2);
@@ -133,8 +133,8 @@ fn binomial_heap_remove_min() {
 }
 
 #[test]
-fn binomial_heap_peek_min() {
-	let mut h = BinomialHeap::<i32>::new();
+fn binary_heap_peek_min() {
+	let mut h = BinaryHeap::<i32>::new();
 	h.add(3);
 	h.add(4);
 	h.add(2);
