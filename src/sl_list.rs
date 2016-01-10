@@ -51,6 +51,17 @@ impl<T> List<T> {
 
 }
 
+pub struct IntoIter<T>(List<T>);
+
+impl<T> List<T> {
+    pub fn into_iter(self) -> IntoIter<T> { IntoIter(self) }
+}
+
+impl<T> Iterator for IntoIter<T> {
+    type Item = T;
+    fn next(&mut self) -> Option<Self::Item> { self.0.pop() }
+}
+
 #[test]
 fn sll_create() {
     let l = List::<i32>::new();
@@ -107,4 +118,29 @@ fn sll_peek() {
     assert!(y.is_some());
     assert_eq!(*y.unwrap(), 10);
     assert_eq!(l.length(), 2);
+}
+
+#[test]
+fn sll_into_iter() {
+    let mut l = List::<i32>::new();
+    l.push(1);
+    l.push(2);
+    l.push(3);
+    assert_eq!(l.length(), 3);
+    let mut iter = l.into_iter();
+
+    let mut item = iter.next();
+    assert!(item.is_some());
+    assert_eq!(item.unwrap(), 3);
+
+    item = iter.next();
+    assert!(item.is_some());
+    assert_eq!(item.unwrap(), 2);
+
+    item = iter.next();
+    assert!(item.is_some());
+    assert_eq!(item.unwrap(), 1);
+
+    item = iter.next();
+    assert!(item.is_none());
 }
