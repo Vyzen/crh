@@ -20,6 +20,8 @@ impl<T : Ord> BinomialTree<T> {
         self.children.length()
     }
 
+    fn root(&self) -> &T { &self.root }
+
     /// Performs a binomial link operation.
     /// other is linked as a subtree of self without regard to the
     /// min-heap property.
@@ -27,6 +29,12 @@ impl<T : Ord> BinomialTree<T> {
         if self.order() != other.order() { panic!() }
         else { self.children.push(other) }
     }
+}
+
+
+fn do_link<T : Ord>(mut x: BinomialTree<T>, mut y : BinomialTree<T>) -> BinomialTree<T> {
+    if x.root() < y.root() { x.link(y) ; x}
+    else { y.link(x) ; y}
 }
 
 /// An implementation of Heap as a binomial heap.
@@ -60,6 +68,40 @@ impl<T : Ord> BinomialHeap<T> {
             let mut cury = y.next();
 
             loop {
+                match (&curx, &cury, &carry) {
+                    ref mut (Some(x_tree), None, None) => {
+                        ret.push(x_tree);
+                        curx = x.next();
+                    }
+                    (&None, &Some(y_tree), &None) => {
+                        ret.push(y_tree);
+                        cury = y.next();
+                    }
+                    (&None, &None, &Some(carry_tree)) => {
+                        ret.push(carry_tree);
+                        carry = None;
+                    }
+                    (&None, &None, &None) => { break }
+                    (&Some(x_tree), &Some(y_tree), &None) => {
+                        let orderx = curx.as_ref().unwrap().order();
+                        let ordery = cury.as_ref().unwrap().order();
+                        if orderx < ordery {
+                            ret.push(x_tree);
+                            curx = x.next();
+                        }
+                        else if orderx > ordery {
+                            ret.push(y_tree);
+                            cury = y.next()
+                        }
+                        else if orderx == ordery {
+                            carry = Some(do_link(x_tree, y_tree));
+                            cury = y.next();
+                            curx = x.next();
+                        }
+                    }
+                    _ => { break }
+                }
+
                 if carry.is_some() {
 
                 } else {
